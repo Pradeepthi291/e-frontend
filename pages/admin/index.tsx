@@ -18,7 +18,7 @@ export default function AdminDashboard() {
   const [range, setRange] = useState("7d"); // selected date range
 
   useEffect(() => {
-    fetch(`http://localhost:5000/admin/analytics?range=${range}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/analytics?range=${range}`, {
       method: "GET",
       credentials: "include",
     })
