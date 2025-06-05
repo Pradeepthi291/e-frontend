@@ -1,35 +1,50 @@
-# ORU Phones Frontend
+# OruPhones FSD Internship - E-Commerce Frontend
 
-This repository contains the frontend for the ORU Phones e-commerce project.
+This is the frontend for an e-commerce project that displays products and connects with the backend APIs to track user interactions and behavior. It includes pages for homepage, best deals, product details, and an admin dashboard for analytics.
 
-## What I implemented
+---
 
-I built the user interface using Next.js and TypeScript. The frontend includes:
+## Features
 
-- A **Homepage** with multiple clickable cards and buttons  
-- A **Best Deals** page with a left-side filter panel (interactable but non-functional) and a grid of product cards  
-- A **Product Info** page showing detailed product information, images, and action buttons like Buy, Contact Seller, and Save  
-- A common **Header** and **Footer** on each page with dummy links and buttons  
-- Integration with the backend API to send user interaction data for behavior tracking  
+- Homepage, Best Deals, and Product Detail pages  
+- Connected to backend APIs for user behavior tracking  
+- Admin dashboard page to display analytics data  
+- Deployed on Vercel for easy access and hosting  
 
-## Deployment & Repo
+---
 
-- GitHub repo: https://github.com/Pradeepthi291/e-frontend  
-- Deployed frontend URL: https://e-frontend-omega.vercel.app/
+## Live Links
 
-## Running locally
+- Frontend: https://e-frontend-omega.vercel.app/  
+- Admin Dashboard: https://e-frontend-omega.vercel.app/admin  
 
-1. Clone the repo  
-2. Run `npm install`  
-3. Run `npm run dev`  
-4. Open `http://localhost:3000` in your browser
+---
 
-## Future improvements
+## Running Locally
 
-- Add actual filter functionality on the Best Deals page  
-- Improve UI/UX design  
+Clone the repo  
+Run `npm install`  
+Ensure backend is running and API URLs are correctly set  
+Run `npm run dev`  
+Open browser at: http://localhost:3000  
+
+---
+
+## Future Improvements
+
+- Add functional filters on Best Deals page  
+- Improve UI/UX design and responsiveness  
 - Add user authentication and profile management  
 
 ---
 
-For any questions, feel free to reach out.
+## Repository
+
+GitHub: https://github.com/Pradeepthi291/e-frontend
+
+---
+
+## Deployment
+
+- Live Frontend: https://e-frontend-omega.vercel.app/  
+- Local Dev: http://localhost:3000
