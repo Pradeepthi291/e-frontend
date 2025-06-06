@@ -1,5 +1,5 @@
 export function trackAction(action: string) {
-  fetch("http://localhost:5000/track/action", {
+  fetch("https://e-backend-2-hrwb.onrender.com/track/action", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
