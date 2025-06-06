@@ -29,7 +29,7 @@ export default function ProductDetailPage() {
     const sendTracking = () => {
       const duration = Date.now() - start;
       const scrollY = window.scrollY;
-
+      console.log("Tracking page URL:", window.location.pathname);
       sendTrackingData([{
         page: window.location.pathname,
         timeSpent: duration,
