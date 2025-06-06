@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { sendTrackingData } from '@/utils/sendTracking';
-import { trackAction } from '@/utils/trackaction';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BuyButton from '@/components/BuyButton';
+import { trackAction } from '@/utils/trackaction';
 
 const products = [
   { id: 1, model: "Google Pixel 7", price: 35000, image: "/images/pixel7.jpg" },
@@ -16,8 +17,12 @@ const products = [
 
 export default function ProductDetailPage() {
   const router = useRouter();
-  const { id } = router.query;
 
+  if (!router.isReady) {
+    return null; // wait till router.query is available
+  }
+
+  const { id } = router.query;
   const product = products.find((p) => p.id === Number(id));
 
   useEffect(() => {
@@ -29,13 +34,15 @@ export default function ProductDetailPage() {
       const duration = Date.now() - start;
       const scrollY = window.scrollY;
 
-      sendTrackingData([{
-        page: window.location.pathname,
-        timeSpent: duration,
-        scrollDepth: scrollY,
-        actions: ['page:visit'],
-        timestamp: new Date().toISOString(),
-      }]);
+      sendTrackingData([
+        {
+          page: window.location.pathname,
+          timeSpent: duration,
+          scrollDepth: scrollY,
+          actions: ['page:visit'],
+          timestamp: new Date().toISOString(),
+        },
+      ]);
     };
 
     window.addEventListener('beforeunload', sendTracking);
@@ -49,50 +56,48 @@ export default function ProductDetailPage() {
       <>
         <Navbar />
         <main className="max-w-5xl mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold text-red-600">Product not found</h1>
+          <h1 className="text-3xl font-bold">Product not found</h1>
         </main>
         <Footer />
       </>
     );
   }
 
-  // ✅ Handler functions for button clicks
-  const handleBuyClick = () => {
-    trackAction("clicked:Buy");
-    alert("Buy button clicked!");
-  };
-
-  const handleContactClick = () => {
-    trackAction("clicked:ContactSeller");
-    alert("Contact Seller button clicked!");
-  };
-
-  const handleSaveClick = () => {
-    trackAction("clicked:Save");
-    alert("Product saved!");
-  };
-
   return (
     <>
       <Navbar />
       <main className="max-w-5xl mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row gap-8">
-          <img
-            src={product.image}
-            alt={product.model}
-            className="w-full max-w-sm rounded-lg shadow-lg"
-          />
-          <div className="flex-1">
-            <h1 className="text-4xl font-bold mb-4">{product.model}</h1>
-            <p className="text-2xl text-green-700 font-semibold mb-6">₹{product.price.toLocaleString()}</p>
+        <h1 className="text-3xl font-bold mb-4">{product.model}</h1>
+        <img
+          src={product.image}
+          alt={product.model}
+          className="w-full max-w-md mb-4"
+        />
+        <p className="text-xl font-semibold mb-6">Price: ₹{product.price}</p>
 
-            <div className="flex flex-wrap gap-4">
-              <button onClick={handleBuyClick} className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">Buy</button>
-              <button onClick={handleContactClick} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Contact Seller</button>
-              <button onClick={handleSaveClick} className="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition">Save</button>
-            </div>
-          </div>
+        {/* Buttons */}
+        <div className="flex flex-wrap gap-4 mb-6">
+          <button
+            className="bg-green-600 text-white px-6 py-2 rounded-xl"
+            onClick={() => trackAction("clicked:Buy")}
+          >
+            Buy
+          </button>
+          <button
+            className="bg-blue-600 text-white px-6 py-2 rounded-xl"
+            onClick={() => trackAction("clicked:ContactSeller")}
+          >
+            Contact Seller
+          </button>
+          <button
+            className="bg-gray-600 text-white px-6 py-2 rounded-xl"
+            onClick={() => trackAction("clicked:Save")}
+          >
+            Save
+          </button>
         </div>
+
+        <BuyButton />
       </main>
       <Footer />
     </>
