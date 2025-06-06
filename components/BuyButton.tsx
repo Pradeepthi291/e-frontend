@@ -1,13 +1,14 @@
-import { trackAction } from '@/utils/trackaction';
+interface BuyButtonProps {
+  onClick?: () => void;  // optional onClick prop
+}
 
-export default function BuyButton() {
-  const handleClick = () => {
-    trackAction("clicked:Buy");
-  };
-
+export default function BuyButton({ onClick }: BuyButtonProps) {
   return (
-    <button onClick={handleClick} className="btn-primary">
-      Buy
+    <button
+      onClick={onClick}  // pass onClick here
+      className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+    >
+      Buy Now
     </button>
   );
 }

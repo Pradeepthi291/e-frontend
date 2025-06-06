@@ -1,9 +1,8 @@
-// pages/product/[id].tsx
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import BuyButton from "@/components/BuyButton";
+import { useRouter } from 'next/router';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import BuyButton from '@/components/BuyButton';
+import { trackAction } from '@/utils/trackaction';
 
 const products = [
   { id: 1, model: "Google Pixel 7", price: 35000, image: "/images/pixel7.jpg" },
@@ -17,9 +16,7 @@ const products = [
 export default function ProductDetailPage() {
   const router = useRouter();
   const { id } = router.query;
-
-  // Convert id from URL to number and find product
-  const product = products.find((p) => p.id === Number(id));
+  const product = products.find(p => p.id === Number(id));
 
   if (!product) {
     return (
@@ -46,15 +43,17 @@ export default function ProductDetailPage() {
         <p className="text-xl font-semibold mb-6">Price: ₹{product.price.toLocaleString()}</p>
 
         <div className="flex space-x-4">
-          <BuyButton />
+          <BuyButton
+            onClick={() => trackAction('buy_clicked')}
+          />
           <button
-            onClick={() => alert("Contact Seller clicked")}
+            onClick={() => trackAction('contact_seller_clicked')}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Contact Seller
           </button>
           <button
-            onClick={() => alert("Save clicked")}
+            onClick={() => trackAction('save_clicked')}
             className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
           >
             Save
