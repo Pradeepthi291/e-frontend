@@ -14,7 +14,7 @@ export async function sendTrackingData(interactions: any[], userId = '', isLogge
   };
 
   try {
-    const res = await fetch('http://localhost:5000/api/track', {
+    const res = await fetch('https://e-backend-2-hrwb.onrender.com/api/track', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
