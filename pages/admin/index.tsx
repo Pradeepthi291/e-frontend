@@ -15,7 +15,7 @@ interface AnalyticsData {
 export default function AdminDashboard() {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [range, setRange] = useState("7d"); // selected date range
+  const [range, setRange] = useState("30d"); // selected date range
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/analytics?range=${range}`, {
