@@ -1,3 +1,5 @@
+// pages/product-info/[id].tsx
+
 import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,18 +13,19 @@ const products = [
   { id: 5, model: "Motorola Edge 30", price: 28000, image: "/images/motorola-edge30.jpg", seller: "Charlie Evans", location: "Lakeside Drive", phoneNumber: "9876507890" },
   { id: 6, model: "OnePlus 9 Pro", price: 45000, image: "/images/oneplus9pro.jpg", seller: "David Miller", location: "Oak Street", phoneNumber: "9876509876" },
 ];
+
 export default function ProductDetailPage() {
   const router = useRouter();
   const { id } = router.query;
-console.log(router.query)
+
   const product = products.find(p => p.id === Number(id));
-console.log(products)
+
   if (!product) {
     return (
       <>
         <Navbar />
-        <main className="max-w-5xl mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold">Product not found</h1>
+        <main className="max-w-5xl mx-auto px-4 py-8 text-center">
+          <h1 className="text-3xl font-bold text-red-600">Product not found</h1>
         </main>
         <Footer />
       </>
@@ -33,15 +36,36 @@ console.log(products)
     <>
       <Navbar />
       <main className="max-w-5xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-4">{product.model}</h1>
-        <img
-          src={product.image}
-          alt={product.model}
-          className="w-full max-w-md mb-4 object-contain"
-        />
-        <p className="text-xl font-semibold mb-6">
-          Price: ₹{product.price.toLocaleString()}
-        </p>
+        <div className="flex flex-col md:flex-row gap-8 items-start">
+          <div className="w-full md:w-1/2">
+            <Image
+              src={product.image}
+              alt={product.model}
+              width={400}
+              height={400}
+              className="object-contain rounded-xl border"
+            />
+          </div>
+          <div className="w-full md:w-1/2 space-y-4">
+            <h1 className="text-3xl font-bold">{product.model}</h1>
+            <p className="text-xl font-semibold text-green-700">
+              ₹{product.price.toLocaleString()}
+            </p>
+            <p className="text-gray-700">Sold by: <span className="font-medium">{product.seller}</span></p>
+            <p className="text-gray-600">Location: {product.location}</p>
+            <div className="flex gap-4 pt-4">
+              <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                Buy Now
+              </button>
+              <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                Contact Seller
+              </button>
+              <button className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 transition">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
       </main>
       <Footer />
     </>
