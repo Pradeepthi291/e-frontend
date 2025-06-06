@@ -14,9 +14,9 @@ const products = [
 export default function ProductDetailPage() {
   const router = useRouter();
   const { id } = router.query;
-
+console.log(router.query)
   const product = products.find(p => p.id === Number(id));
-
+console.log(products)
   if (!product) {
     return (
       <>
