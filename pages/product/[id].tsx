@@ -67,6 +67,9 @@ export default function ProductDetailPage() {
               <button className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition">
                 Contact Seller
               </button>
+              <button className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition">
+                Save
+              </button>
             </div>
           </div>
         </div>
