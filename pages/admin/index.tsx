@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 interface AnalyticsData {
   totalSessions: number;
-  avgSessionsPerUser?: number; // NEW
+  avgSessionsPerUser?: number;
   topPages: { _id: string; count: number }[];
   avgTimeSpent: { _id: string; avgTime: number }[];
   topActions: { _id: string; count: number }[];
@@ -15,10 +15,12 @@ interface AnalyticsData {
 export default function AdminDashboard() {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [range, setRange] = useState("7d"); // selected date range
+  const [range, setRange] = useState("7d");
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/analytics?range=${range}`, {
+    fetch(`${apiUrl}/admin/analytics?range=${range}`, {
       method: "GET",
       credentials: "include",
     })
@@ -40,7 +42,6 @@ export default function AdminDashboard() {
     <div className="p-6 space-y-8">
       <h1 className="text-2xl font-bold">📊 Admin Analytics Dashboard</h1>
 
-      {/* Date range selector */}
       <div className="mb-4">
         <label className="mr-2 font-semibold">Filter by Date:</label>
         <select
@@ -55,7 +56,6 @@ export default function AdminDashboard() {
         </select>
       </div>
 
-      {/* Summary section */}
       <div className="bg-gray-100 p-4 rounded-xl shadow space-y-2">
         <h2 className="text-lg font-semibold">User Sessions</h2>
         <p>Total Sessions: {data.totalSessions}</p>
@@ -67,7 +67,6 @@ export default function AdminDashboard() {
         </p>
       </div>
 
-      {/* Analytics sections grid */}
       <div className="grid md:grid-cols-2 gap-6">
         <AnalyticsSection title="Top Visited Pages" items={data.topPages} />
         <AnalyticsSection
